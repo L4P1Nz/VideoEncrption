@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import vector_process
+import os
 
 def preprocess_video(frame_list, N):
 
@@ -14,9 +15,11 @@ def preprocess_video(frame_list, N):
             continue
 
         height, width, channels = frame.shape
+
         frame_pre_vector = vector_process.reshape_frame_to_vector(frame_prev)
         frame_vector = vector_process.reshape_frame_to_vector(frame)
-        frame_diff = vector_process.reshape_vector_to_frame(frame_pre_vector - frame_vector , height, width)
+        
+        frame_diff = vector_process.reshape_vector_to_frame(frame_pre_vector - frame_vector , height, width, channels)
         new_frame_list.append(frame_diff)
 
     return new_frame_list
@@ -27,7 +30,7 @@ def convert_frames_to_video(frame_list, output_path, fps):
         return
 
     height, width, channels = frame_list[0].shape
-    fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(output_path, fourcc, fps, (width, height))
 
     for frame in frame_list:
@@ -62,7 +65,7 @@ def process_video_decrypt(frame_list, N):
         height, width, channels = frame.shape
         frame_pre_vector = vector_process.reshape_frame_to_vector(frame_prev)
         frame_diff_vector = vector_process.reshape_frame_to_vector(frame)
-        frame_original = vector_process.reshape_vector_to_frame(frame_pre_vector - frame_diff_vector , height, width)
+        frame_original = vector_process.reshape_vector_to_frame(frame_pre_vector - frame_diff_vector , height, width, channels)
         new_frame_list.append(frame_original)
     
     return new_frame_list
@@ -85,7 +88,3 @@ def convert_video_to_frame_list(video_path):
     cap.release()
     return list_frame
 
-def save_frame_to_img(frame_list, path):
-    for i, frame in enumerate(frame_list):
-        cv2.imwrite(f".\img2\\{path}\\frame_{i}.jpg", frame)
-        print(f"Store successfully frame_{i}.jpg")

@@ -5,7 +5,7 @@ def get_bytes_from_float(number):
     data = struct.pack('d', number)
     return data
 
-# Model 1: Henon Chaotic Map
+# Model 1:
 def henon_chaotic_map_1(a, b, Xo, Yo, iterations):
     X = np.zeros(iterations+1)
     Y = np.zeros(iterations+1)
@@ -19,7 +19,7 @@ def henon_chaotic_map_1(a, b, Xo, Yo, iterations):
 
     return (X, Y)
 
-# Model 2: Henon Chaotic Map for ChaCha20 initialization
+# Model 2:
 def henon_chaotic_map_2(a, b, Xo, Yo, iterations):
     X = np.zeros(iterations+1)
     Y = np.zeros(iterations+1)
@@ -49,19 +49,6 @@ def select2(key):
 def integrate(key, key1):
     return key + key1
 
-
-a2 = 1.4
-b2 = 0.3
-Xo2 = 1.2
-Yo2 = 0.8
-H = 1080  
-W = 1920  
-a1 = 1.4
-b1 = 0.3
-Xo1 = 0.5
-Yo1 = 0.5
-Mid = 100
-M = 10
 
 # keys = henon_chaotic_map_2(a2, b2, Xo2, Yo2, M)
 # print(keys)

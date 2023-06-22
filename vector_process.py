@@ -5,7 +5,6 @@ def reshape_frame_to_vector(frame):
     reshaped_frame = np.reshape(frame, (height * width * channels))
     return reshaped_frame
 
-def reshape_vector_to_frame(vectorized_frame, height, width):
-    channels = 3
+def reshape_vector_to_frame(vectorized_frame, height, width, channels):
     reshaped_frame = np.reshape(vectorized_frame, (height, width, channels))
     return reshaped_frame
